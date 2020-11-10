@@ -95,6 +95,15 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
   background: #fff;
   border: 1px solid silver;
   border-radius: 5px;
+  color: blue;
+  font-size: 12px;
+  cursor: pointer;
+}
+.twit-unfollow {
+  padding: 1px 5px;
+  background: #fff;
+  border: 1px solid silver;
+  border-radius: 5px;
   color: crimson;
   font-size: 12px;
   cursor: pointer;

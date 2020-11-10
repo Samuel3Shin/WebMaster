@@ -36,6 +36,7 @@ router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
 const upload2 = multer();
 router.post('/', isLoggedIn, upload2.none(), async(req, res, next) => {
     try {
+        console.log(req.body.content);
         const post = await Post.create({
             content: req.body.content,
             img: req.body.url,
@@ -59,5 +60,15 @@ router.post('/', isLoggedIn, upload2.none(), async(req, res, next) => {
         next(error);
     }
 });
+
+router.post('/delete', isLoggedIn, async (req, res, next) => {
+    try {
+        console.log(req);
+        // Post.destroy({where: {content: req.body.content}});
+        // console.log(req);
+    } catch (error) {
+        console.error(error);
+    }
+})
 
 module.exports = router;

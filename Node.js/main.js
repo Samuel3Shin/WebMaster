@@ -151,7 +151,6 @@ var app = http.createServer((request,response) => {
         var post = qs.parse(body);
         var id = post.id;
 
-
         var filteredId = path.parse(id).base;
         fs.unlink(`data/${filteredId}`, (error) => {
           response.writeHead(302, {
