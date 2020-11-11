@@ -38,14 +38,14 @@
             <button class="twit-unfollow">언팔로우하기</button>
             {% endif %}
 
-            {% if twit.User.id === user.id %}
+            <!-- {% if twit.User.id === user.id %}
               <form id="twit-delete" action="/post/delete" method="post">
                 <div>
                   <div id="twit-for-delete" name="content2">{{twit.content}}</div>
                   <button id="post-delete" type="submit" class="btn">삭제</button>
                 </div>
               </form>
-            {% endif %}
+            {% endif %} -->
 
             <div class="twit-content">{{twit.content}}</div>
             {% if twit.img %}
