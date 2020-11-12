@@ -32,6 +32,7 @@ const sessionMiddleware = session({
 });
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/gif', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -39,6 +40,7 @@ app.use(sessionMiddleware);
 
 app.use((req, res, next) => {
   if (!req.session.color) {
+    console.log('여기에 들어오긴하나??');
     const colorHash = new ColorHash();
     req.session.color = colorHash.hex(req.sessionID);
   }

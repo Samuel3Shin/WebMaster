@@ -25,6 +25,9 @@ module.exports = (server, app, sessionMiddleware) => {
     console.log('chat 네임스페이스에 접속');
     const req = socket.request;
     const { headers: { referer } } = req;
+    // console.log('리퀘스트는요?');
+    // console.log(req);
+    
     const roomId = referer
       .split('/')[referer.split('/').length - 1]
       .replace(/\?.+/, '');
@@ -39,9 +42,12 @@ module.exports = (server, app, sessionMiddleware) => {
       socket.leave(roomId);
       const currentRoom = socket.adapter.rooms[roomId];
       const userCount = currentRoom ? currentRoom.length : 0;
+
       if (userCount === 0) { // 유저가 0명이면 방 삭제
-        const signedCookie = cookie.sign( req.signedCookies['connect.sid'], process.env.COOKIE_SECRET );
+        console.log(req.signedCookies)
+        const signedCookie = cookie.sign(req.signedCookies['connect.sid'] , process.env.COOKIE_SECRET);
         const connectSID = `${signedCookie}`;
+
         axios.delete(`http://localhost:8005/room/${roomId}`, {
           headers: {
             Cookie: `connect.sid=s%3A${connectSID}`
