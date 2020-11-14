@@ -19,7 +19,7 @@ module.exports = async () => {
             });
             await Good.update({SoldId: success.UserId}, {where: {id:target.id}});
             await User.update({
-                money: sequelize.litera(`money - ${success.bid}`),
+                money: sequelize.literal(`money - ${success.bid}`),
             }, {
                 where: {id: success.UserId},
             });

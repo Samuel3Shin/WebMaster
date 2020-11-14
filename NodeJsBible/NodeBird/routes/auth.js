@@ -26,6 +26,29 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
     }
 });
 
+router.post('/edit_profile', isLoggedIn, async (req, res, next) => {
+    console.log(req);
+    const email = req.user.email;
+    const new_nick = req.body.nick;
+    const new_password = req.body.password;
+    try {
+        const exUser = await User.findOne({where: {email}});
+        const hash = await bcrypt.hash(new_password, 12);
+        await exUser.update(
+            {nick: new_nick,
+            password: hash},
+        ).then((data) => {
+            console.log('닉네임은 ', data.dataValues.nick);
+        });
+
+        console.log("사용자 정보를 성공적으로 변경하였습니다.");
+        return res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        return next(error);
+    }
+});
+
 router.post('/login', isNotLoggedIn, (req, res, next) => {
     passport.authenticate('local', (authError, user, info) => {
         if(authError) {
