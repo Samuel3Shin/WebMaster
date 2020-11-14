@@ -38,20 +38,16 @@
             <button class="twit-unfollow">언팔로우하기</button>
             {% endif %}
 
-            <!-- {% if twit.User.id === user.id %}
-              <form id="twit-delete" action="/post/delete" method="post">
-                <div>
-                  <div id="twit-for-delete" name="content2">{{twit.content}}</div>
-                  <button id="post-delete" type="submit" class="btn">삭제</button>
-                </div>
-              </form>
-            {% endif %} -->
+            {% if twit.User.id === user.id %}
+            <button class="twit-delete" value={{twit.content}}>삭제</button>
+            {% endif %}
 
             <div class="twit-content">{{twit.content}}</div>
             {% if twit.img %}
               <div class="twit-img"><img src="{{twit.img}}" alt="섬네일"></div>
             {% endif %}
           </div>
+
         {% endfor %}
       </div>
     </div>
@@ -116,26 +112,28 @@
       });
     });
 
-    // document.querySelectorAll('.twit-delete').forEach(function(tag) {
-    //   tag.addEventListener('click', function() {
-    //     const myId = document.querySelector('#my-id');
-    //     if (myId) {
-    //       const userId = tag.parentNode.querySelector('.twit-user-id').value;
-    //       if (userId === myId.value) {
-    //         if (confirm('글을 삭제하시겠습니까?')) {
+    document.querySelectorAll('.twit-delete').forEach(function(tag) {
+      tag.addEventListener('click', function() {
+        const myId = document.querySelector('#my-id');
+        if (myId) {
+          const userId = tag.parentNode.querySelector('.twit-user-id').value;
+          if (userId === myId.value) {
+            if (confirm('글을 삭제하시겠습니까?')) {
 
-    //           axios.post(`/user/${userId}/post-delete`)
-    //             .then(() => {
-    //               location.reload();
-    //             })
-    //             .catch((err) => {
-    //               console.error(err);
-    //             });
-    //         }
-    //       }
-    //     }
-    //   });
-    // });
+              console.log(tag);
+
+              axios.post(`/user/${userId}/post-delete`, {value:tag.value})
+                .then(() => {
+                  location.reload();
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            }
+          }
+        }
+      });
+    });
 
   </script>
 {% endblock %}
