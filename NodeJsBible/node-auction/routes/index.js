@@ -124,6 +124,11 @@ router.post('/good/:id/bid', isLoggedIn, async(req, res, next) => {
             include: {model: Auction},
             order: [[{model: Auction}, 'bid', 'DESC']],
         });
+        
+        if(req.user.id === good.OwnerId) {
+            return res.status(403).send('자기가 올린 물건에는 입찰할 수 없습니다.');
+        }
+
         if(good.price >= bid) {
             return res.status(403).send('시작 가격보다 높게 입찰해야 합니다.');
         }
@@ -133,6 +138,7 @@ router.post('/good/:id/bid', isLoggedIn, async(req, res, next) => {
         if(good.Auctions[0] && good.Auctions[0].bid >= bid) {
             return res.status(403).send('이전 입찰가보다 높아야 합니다.');
         }
+
         const result = await Auction.create({
             bid,
             msg,
