@@ -50,6 +50,10 @@ router.get('/room/:id', async (req, res, next) => {
       return res.redirect('/?error=비밀번호가 틀렸습니다.');
     }
     const { rooms } = io.of('/chat').adapter;
+    var userCount = 1;
+    if(rooms && rooms[req.params.id]) {
+      userCount = rooms[req.params.id].length + 1;
+    }
     if (rooms && rooms[req.params.id] && room.max <= rooms[req.params.id].length) {
       return res.redirect('/?error=허용 인원이 초과하였습니다.');
     }
@@ -59,6 +63,7 @@ router.get('/room/:id', async (req, res, next) => {
       title: room.title,
       chats,
       user: req.session.color,
+      number: `참여인원: ${userCount}`,
     });
   } catch (error) {
     console.error(error);

@@ -40,7 +40,6 @@ app.use(sessionMiddleware);
 
 app.use((req, res, next) => {
   if (!req.session.color) {
-    console.log('여기에 들어오긴하나??');
     const colorHash = new ColorHash();
     req.session.color = colorHash.hex(req.sessionID);
   }
