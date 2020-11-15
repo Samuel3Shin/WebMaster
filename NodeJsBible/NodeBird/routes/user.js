@@ -40,7 +40,7 @@ router.post('/:id/post-delete', isLoggedIn, async(req, res, next) => {
 
         const item = await Post.findOne({
             where: {
-                content: req.body.value,
+                id: req.body.value,
             }
         })
         await item.destroy();

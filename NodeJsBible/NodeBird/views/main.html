@@ -39,7 +39,7 @@
             {% endif %}
 
             {% if twit.User.id === user.id %}
-            <button class="twit-delete" value={{twit.content}}>삭제</button>
+            <button class="twit-delete" value="{{twit.id}}">삭제</button>
             {% endif %}
 
             <div class="twit-content">{{twit.content}}</div>
@@ -120,7 +120,7 @@
           if (userId === myId.value) {
             if (confirm('글을 삭제하시겠습니까?')) {
 
-              console.log(tag);
+              console.log('받은 태그는: ', tag);
 
               axios.post(`/user/${userId}/post-delete`, {value:tag.value})
                 .then(() => {
