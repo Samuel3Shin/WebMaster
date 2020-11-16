@@ -51,4 +51,49 @@ router.post('/:id/post-delete', isLoggedIn, async(req, res, next) => {
     }
 });
 
+router.post('/:id/post-like', isLoggedIn, async(req, res, next) => {
+    try {
+        console.log(req.body.value);
+
+        const user = await User.findOne({where: {id: req.user.id}});
+        const post = await Post.findOne({
+            where: {
+                id: req.body.value,
+            }
+        })
+        user.addLikedPosts(post);
+        post.addLikedUsers(user);
+        console.log("like 성공했당!");
+
+        res.send('success');
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+router.post('/:id/post-unlike', isLoggedIn, async(req, res, next) => {
+    try {
+        console.log(req.body.value);
+
+        const user = await User.findOne({where: {id: req.user.id}});
+        const post = await Post.findOne({
+            where: {
+                id: req.body.value,
+            }
+        })
+        user.removeLikedPosts(post);
+        post.removeLikedUsers(user);
+        console.log("like 취소 성공했당!");
+
+        res.send('success');
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+
+
+
 module.exports = router;

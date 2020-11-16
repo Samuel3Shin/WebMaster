@@ -38,6 +38,20 @@
             <button class="twit-unfollow">언팔로우하기</button>
             {% endif %}
 
+            {% if twit.User.id !== user.id %}
+            <button class="twit-like" value="{{twit.id}}">좋아요</button>
+            {% endif %}
+
+            {% if twit.User.id !== user.id %}
+            <button class="twit-unlike" value="{{twit.id}}">좋아요 취소</button>
+            {% endif %}
+
+            <!-- <div class="like-count">좋아요 count: {{twit.getLikedUsers.length}}</div> -->
+
+            <!-- {% if twit.User.id !== user.id and PostLike.twit.id and PostLike.twit.id === user.id %}
+            <button class="twit-unlike" value="{{twit.id}}">좋아요 취소</button>
+            {% endif %} -->
+
             {% if twit.User.id === user.id %}
             <button class="twit-delete" value="{{twit.id}}">삭제</button>
             {% endif %}
@@ -131,6 +145,45 @@
                 });
             }
           }
+        }
+      });
+    });
+
+
+    document.querySelectorAll('.twit-like').forEach(function(tag) {
+      tag.addEventListener('click', function() {
+        const myId = document.querySelector('#my-id');
+        if (confirm('좋아요 누르시겠습니까?')) {
+          console.log("@@@@@@@@@@@@@@@@@@@@@");
+          console.log('받은 태그는: ', tag);
+
+          axios.post(`/user/${myId}/post-like`, {value:tag.value})
+            .then(() => {
+              location.reload();
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+
+
+      });
+    });
+
+    document.querySelectorAll('.twit-unlike').forEach(function(tag) {
+      tag.addEventListener('click', function() {
+        const myId = document.querySelector('#my-id');
+        if (confirm('좋아요 취소하시겠습니까?')) {
+          console.log("@@@@@@@@@@@@@@@@@@@@@");
+          console.log('받은 태그는: ', tag);
+
+          axios.post(`/user/${myId}/post-unlike`, {value:tag.value})
+            .then(() => {
+              location.reload();
+            })
+            .catch((err) => {
+              console.error(err);
+            });
         }
       });
     });

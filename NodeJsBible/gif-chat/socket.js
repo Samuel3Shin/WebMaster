@@ -32,16 +32,20 @@ module.exports = (server, app, sessionMiddleware) => {
       .split('/')[referer.split('/').length - 1]
       .replace(/\?.+/, '');
     socket.join(roomId);
+
+
     socket.to(roomId).emit('join', {
       user: 'system',
       chat: `${req.session.color}님이 입장하셨습니다.`,
       number: `참여인원: ${socket.adapter.rooms[roomId].length}`,
+      owner: socket.adapter.rooms[roomId].owner,
     });
 
     socket.on('disconnect', () => {
       console.log('chat 네임스페이스 접속 해제');
       socket.leave(roomId);
       const currentRoom = socket.adapter.rooms[roomId];
+
       const userCount = currentRoom ? currentRoom.length : 0;
 
       if (userCount === 0) { // 유저가 0명이면 방 삭제
@@ -65,6 +69,7 @@ module.exports = (server, app, sessionMiddleware) => {
           user: 'system',
           chat: `${req.session.color}님이 퇴장하셨습니다.`,
           number: `참여인원: ${userCount}`,
+          owner:  socket.adapter.rooms[roomId].owner,
         });
       }
     });

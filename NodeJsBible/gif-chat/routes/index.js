@@ -64,6 +64,7 @@ router.get('/room/:id', async (req, res, next) => {
       chats,
       user: req.session.color,
       number: `참여인원: ${userCount}`,
+      owner: room.owner,
     });
   } catch (error) {
     console.error(error);
