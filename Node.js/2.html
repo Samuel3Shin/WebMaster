@@ -3,17 +3,70 @@
 <head>
   <title>WEB1 - CSS</title>
   <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="set_colors.js"></script>
 </head>
+<style>
+  body {
+    margin: 0;
+  }
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  h1 {
+    font-size:45px;
+    text-align: center;
+    border-bottom: 1px solid grey;
+    margin: 0;
+    padding: 20px;
+  }
+  h2 {
+    margin: 20;
+  }
+  #grid ol {
+    border-right:1px solid grey;
+    width:100px;
+    margin: 0;
+    padding: 20px;
+    padding-left: 33px;
+  }
+  #grid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+  }
+  #paragraph {
+    padding-left: 20px;
+  }
+  @media(max-width:800px) {
+    #grid{
+      display: block;
+    }
+    #grid ol {
+      border-right:none;
+    }
+    h1 {
+      border: none;
+    }
+  }
+</style>
 <body>
   <h1><a href="index.html">WEB</a></h1>
-  <ol>
-    <li><a href="1.html">HTML</a></li>
-    <li><a href="2.html">CSS</a></li>
-    <li><a href="3.html">JavaScript</a></li>
-  </ol>
-  <h2>CSS</h2>
-  <p>
-    Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language. Although most often used to set the visual style of web pages and user interfaces written in HTML and XHTML, the language can be applied to any XML document, including plain XML, SVG and XUL, and is applicable to rendering in speech, or on other media. Along with HTML and JavaScript, CSS is a cornerstone technology used by most websites to create visually engaging webpages, user interfaces for web applications, and user interfaces for many mobile applications.
-  </p>
+  <input type="button" value="day" onclick="
+    nightDayHandler(this);
+  ">
+  <div id="grid">
+    <ol>
+      <li><a href="1.html" >HTML</a></li>
+      <li><a href="2.html" >CSS</a></li>
+      <li><a href="3.html">JavaScript</a></li>
+    </ol>
+    <div id="paragraph">
+      <h2>CSS</h2>
+      <p>
+        Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language. Although most often used to set the visual style of web pages and user interfaces written in HTML and XHTML, the language can be applied to any XML document, including plain XML, SVG and XUL, and is applicable to rendering in speech, or on other media. Along with HTML and JavaScript, CSS is a cornerstone technology used by most websites to create visually engaging webpages, user interfaces for web applications, and user interfaces for many mobile applications.
+      </p>
+    </div>
+  </div>
 </body>
 </html>
